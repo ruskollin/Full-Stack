@@ -1,0 +1,9 @@
+title 0.6
+
+participant Browser
+
+participant Server
+
+note over Browser: Browser sends new note
+Browser->Server: POST https://studies.cs.helsinki.fi/exampleapp/spa
+Browser<--Server: [{content: "new note", date: "2021-03-18T11:29:51.990Z"}]

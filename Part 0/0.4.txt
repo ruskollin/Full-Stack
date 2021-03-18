@@ -1,0 +1,22 @@
+title 0.4
+
+participant Browser
+
+participant Server
+
+note over Browser: Browser sends user input
+
+Browser->Server: POST https://studies.cs.helsinki.fi/exampleapp/new_note
+Browser<--Server: Status Code 302
+Browser->Server: GET https://studies.cs.helsinki.fi/exampleapp/notes
+Browser<--Server: HTML code
+Browser->Server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+Browser<--Server: main.css
+Browser->Server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
+Browser<--Server: main.js
+note over Browser: Browser starts executing js-code \nthat requests JSON data \nfrom server end note 
+end 
+Browser->Server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+Browser<--Server: [{ content: "HTML is easy", date: "2019-05-23" }, ...]
+note over Browser: Browser executes the event handler \nthat renders notes to display.
+end 

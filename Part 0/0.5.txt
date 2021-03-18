@@ -1,0 +1,19 @@
+title 0.5
+
+participant Browser
+
+participant Server
+
+
+Browser->Server: GET https://studies.cs.helsinki.fi/exampleapp/spa
+Browser<--Server: Status Code 200
+Browser->Server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+Browser<--Server: main.css
+Browser->Server: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+Browser<--Server: spa.js
+note over Browser: Browser starts executing js-code \nthat requests JSON data \nfrom server  
+Browser->Server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+Browser<--Server: [{ content: "HTML is easy", date: "2019-05-23" }, ...]
+note over Browser: Browser executes the event handler \nthat renders notes to display
+
+end 
