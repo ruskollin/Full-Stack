@@ -16,8 +16,8 @@ const App = () => {
   const [highest, setHighest] = useState(0)
 
   const handleRandom = () => {
-    const randomIndex = Math.floor(Math.random() * anecdotes.length)
-    setSelected(randomIndex)
+    const random = Math.floor(Math.random() * anecdotes.length)
+    setSelected(random)
   }
 
   const handleVote = () => {
