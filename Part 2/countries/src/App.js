@@ -6,7 +6,7 @@ import Filter from './components/Filter'
 function App() {
   const [countries, setCountries]= useState([])
   const [filter, setFilter]= useState('')
-  const [results, setResults]= useState('')
+  const [results, setResults]= useState([])
 
   useEffect(() => {
     axios
