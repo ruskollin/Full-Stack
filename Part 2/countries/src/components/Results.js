@@ -2,9 +2,9 @@ import React from 'react'
 import Country from './Country'
 
 const Results = ({ results }) => {
-    const tooManyCountries = results.length > 10;
-    const multipleCountries = results.length > 1 && results.length <= 10;
-    const singleCountry = results.length === 1;
+    const overTen = results.length > 10;
+    const oneToTen = results.length > 1 && results.length <= 10;
+    const match = results.length === 1;
   
     const countryList = results.map((country) => {
       return (
@@ -16,9 +16,10 @@ const Results = ({ results }) => {
   
     return (
       <div>
-        {tooManyCountries && 'Too many matches, specify another filter'}
-        {multipleCountries && <div>{countryList}</div>}
-        {singleCountry && <Country country={results[0]} />}
+        {/* Inline If with Logical && Operator */}
+        {overTen && 'Too many matches, specify another filter'}
+        {oneToTen && <div>{countryList}</div>}
+        {match && <Country country={results[0]} />}
       </div>
     );
   };
