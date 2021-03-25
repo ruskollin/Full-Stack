@@ -1,4 +1,5 @@
 import React from 'react'
+import Weather from './Weather'
 
 const Country = ({ country }) => {
     const { name, capital, population, languages, flag } = country
@@ -13,24 +14,32 @@ const Country = ({ country }) => {
             textAlign: 'center',
             borderWidth: 2,
             borderStyle: 'solid',
-            display: 'flex',
+            display: 'grid',
+            gridTemplateColumns: 400,
+            gridTemplateRows: 300
           }} >
 
         <div 
           style={{
-            width: 600,
+            width: 400,
+            marginTop: -1,
             backgroundImage: `url(${flag})`,
             backgroundPosition: 'center',
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
             textAlign: 'center',
-            borderWidth: 2,
-            borderStyle: 'solid'
+            borderWidth: 5,
+            borderStyle: 'solid',
+            gridColumnStart: 1,
+            gridColumnEnd: -1,
+            zIndex: 2
           }} >
         </div>
 
         <div
           style={{
+            marginTop: -1,
+            marginLeft: 1,
             width: 300,
             backgroundColor: '#BDF2FF'
           }} >
@@ -43,7 +52,15 @@ const Country = ({ country }) => {
             {languages.map((lang) => (
               <p key={`${lang.iso639_1}`}>{lang.name}</p>
             ))}
-          </div>       
+          </div>  
+        
+          <div 
+            style={{
+              gridColumnStart: 'span 2',
+              gridColumnEnd: 'span 2'
+            }} >
+          <Weather capital={capital}/>
+          </div>     
         </div>
       );
     };

@@ -8,7 +8,7 @@ function App() {
   const [filter, setFilter]= useState('')
   const [results, setResults]= useState([])
 
-  useEffect(() => {
+  const hook = () => {
     axios
       .get(`https://restcountries.eu/rest/v2/all`)
       .then(response => {
@@ -16,7 +16,9 @@ function App() {
         setCountries(response.data)
         console.log(response.data)
       })
-  }, [])
+  }
+
+  useEffect(hook, []);
 
   const handleFilterChange = (event) => {
     event.preventDefault()
@@ -25,10 +27,14 @@ function App() {
     setResults(results);
   }
 
+  const handleClick = (event) => {
+    setFilter(event.target.id);
+  };
+
   return (
     <div className="App">
-      <Filter filter={filter} onFilterChange={handleFilterChange} />
-      <Results results={results} countries={countries} />
+      <Filter filter={filter} onFilterChange={handleFilterChange} />     
+      <Results results={results} handleClick={(event) => handleClick(event)} /> 
     </div>
   );
 }
