@@ -1,42 +1,50 @@
 import React from 'react'
+import '../index.css'
 
-const Person = (props) => {
-    return (
-      <div 
-        style={{
-          width: 250,
-          marginBottom: 20,
-          borderWidth: 2,
-          borderStyle: 'solid',
-          textAlign: 'center'
-        }}
-      >
-        <strong>{props.name}</strong>
-        <p>{props.number}</p>
-      </div>
-    );
-  };
+const containerStyle = {
+  display: 'flex',
+  flexWrap: 'wrap'
+}
 
-const Persons = (props) => {
-  const persons = props.persons;
-  const results = props.results;
+const personStyle = {
+  width: 250,
+  marginBottom: 20,
+  borderWidth: 2,
+  borderStyle: 'solid',
+  textAlign: 'center',
+  marginLeft: 20,
+  backgroundColor: '#ACE7FF'
+}
 
+const Persons = ({ persons, results, handleDelete }) => {
   return (
-    <div>
-      {results && results.length > 0 
-      ? results.map((person, i) => 
-      <Person 
-      key= {person.id}
-      name= {person.name}
-      number= {person.number} /> )
-      : persons.map(person =>
-          <Person 
-            key= {person.id}
-            name= {person.name}
-            number= {person.number} />
-        )}
+    <div style={containerStyle}>
+      {results && results.length > 0
+        ? results.map((person, i) =>
+          <div key={person.name} style={personStyle} >
+            <p>{person.name}</p>
+            <p>{person.number}</p>
+            <button
+              style={{ marginLeft: 3, marginBottom: 5, backgroundColor: 'red', color: 'white' }}
+              onClick={() => handleDelete(person.id)}>
+              DELETE
+            </button>
+          </div>
+        )
+        :
+        persons.map((person) => (
+          <div key={person.name} style={personStyle} >
+            <p>{person.name}</p>
+            <p>{person.number}</p>
+            <button
+              style={{ marginLeft: 3, marginBottom: 5, backgroundColor: 'red', color: 'white' }}
+              onClick={() => handleDelete(person.id)}>
+              DELETE
+            </button>
+          </div>
+        ))}
     </div>
   )
 }
 
-export default Persons 
+export default Persons

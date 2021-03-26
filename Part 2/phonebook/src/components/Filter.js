@@ -1,9 +1,10 @@
 import React from 'react';
+import '../index.css'
 
 const Filter = ({ filter, onFilterChange}) => {
     return (
-        <div>
-        search for: 
+        <div className='filter'>
+        Search: {' '}
             <input
                 value={filter}
                 onChange={onFilterChange}
