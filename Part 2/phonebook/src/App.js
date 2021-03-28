@@ -18,7 +18,7 @@ const App = () => {
     personService
       .getAll()
       .then(response => {
-        setPersons(response.data)
+        setPersons(response)
       })
   }, [])
 
@@ -72,6 +72,9 @@ const App = () => {
           setTimeout(() => {
             setNotif(null)
           }, 5000)
+        })
+        .catch((error) => {
+          setNotif(error.response.data.error)
         })
     }
   }
