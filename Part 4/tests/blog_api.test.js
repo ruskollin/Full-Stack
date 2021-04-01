@@ -40,12 +40,12 @@ describe('GET /blogs', function () {
           .expect('Content-Type', /application\/json/);
       });
     
-      test('returns the correct number of blogs', async () => {
+      test('correct amount of blogs', async () => {
         const blogs = await api.get('/api/blogs');
         expect(blogs.body.length).toBe(2);
       });
     
-      test('blogs have an unique identifier id property', async () => {
+      test('verify unique identifier property of blog by id', async () => {
         const blogs = await api.get('/api/blogs');
         expect(blogs.body[0].id).toBeDefined();
       });
