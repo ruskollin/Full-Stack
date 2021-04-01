@@ -1,3 +1,4 @@
+//Example code
 const palindrome = (string) => {
   return string
     .split('')
