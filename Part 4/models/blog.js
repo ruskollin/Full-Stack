@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 var uniqueValidator = require('mongoose-unique-validator')
-const MONGODB_URI="mongodb+srv://fullstack:passwordfull123@cluster0.fka4k.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
-const url = MONGODB_URI
+const url = process.env.MONGODB_URI
 
 console.log('connecting to', url)
 
@@ -36,7 +35,10 @@ const blogSchema = new mongoose.Schema({
     minlength: 1,
     required: true
   },
-
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }
 })
 
 blogSchema.plugin(uniqueValidator)

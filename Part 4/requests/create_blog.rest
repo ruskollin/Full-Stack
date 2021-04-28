@@ -1,0 +1,20 @@
+POST http://localhost:3003/api/blogs/
+Content-Type: application/json
+
+{
+    "title": "Klara and the Sun",
+    "author": "Kazuo Ishiguro",
+    "url": "https://www.goodreads.com/book/show/54120408-klara-and-the-sun",
+    "likes": 30
+}
+
+###
+POST http://localhost:3003/api/users 
+Content-Type: application/json
+
+{
+    "blogs": [],
+    "username": "root",
+    "name": "Superuser",
+    "password": "salainen"
+}
