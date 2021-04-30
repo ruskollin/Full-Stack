@@ -7,14 +7,3 @@ Content-Type: application/json
     "url": "https://www.goodreads.com/book/show/54120408-klara-and-the-sun",
     "likes": 30
 }
-
-###
-POST http://localhost:3003/api/users 
-Content-Type: application/json
-
-{
-    "blogs": [],
-    "username": "root",
-    "name": "Superuser",
-    "password": "salainen"
-}

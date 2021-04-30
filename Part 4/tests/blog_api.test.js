@@ -96,20 +96,20 @@ describe('addition of a new blog', function () {
             url: 'https://www.goodreads.com/book/show/40740914-if-cats-disappeared-from-the-world',
             likes: 10
         }
-    
+
         await api
             .post('/api/blogs')
             .send(blogNoTitle)
             .expect(400)
     })
-    
+
     test('fails with statuscode 404 if URL does not exist', async () => {
         const blogNoURL = {
             title: 'If Cats Disappeared From The World',
             author: 'Genki Kawamura',
             likes: 10
         }
-    
+
         await api
             .post('/api/blogs')
             .send(blogNoURL)
@@ -140,28 +140,28 @@ describe('updating a blog', function () {
             url: 'https://www.goodreads.com/book/show/40740914-if-cats-disappeared-from-the-world',
             likes: 10,
         };
-  
-      await api
-        .post('/api/blogs')
-        .send(newBlog);
-  
-      const blogsAtStart = await helper.blogsInDb();
-      const blogToUpdate = blogsAtStart[blogsAtStart.length - 1].id;
-  
-      const newLikes = {
-        likes: 200,
-      };
 
-      const updatedBlog = await api
-        .put(`/api/blogs/${blogToUpdate}`)
-        .send(newLikes)
-        .set('Accept', 'application/json')
-        .expect(200);
-  
-      expect(updatedBlog.body).toHaveProperty('likes', 200);
+        await api
+            .post('/api/blogs')
+            .send(newBlog);
+
+        const blogsAtStart = await helper.blogsInDb();
+        const blogToUpdate = blogsAtStart[blogsAtStart.length - 1].id;
+
+        const newLikes = {
+            likes: 200,
+        };
+
+        const updatedBlog = await api
+            .put(`/api/blogs/${blogToUpdate}`)
+            .send(newLikes)
+            .set('Accept', 'application/json')
+            .expect(200);
+
+        expect(updatedBlog.body).toHaveProperty('likes', 200);
     });
 });
 
-    afterAll(() => {
-        mongoose.connection.close()
-    });
+afterAll(() => {
+    mongoose.connection.close()
+});

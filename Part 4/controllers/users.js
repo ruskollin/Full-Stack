@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const usersRouter = require('express').Router()
 const User = require('../models/user')
 
@@ -28,8 +28,8 @@ usersRouter.post('/', async (request, response, next) => {
   }
 
   try {
-    const saltRounds = 10;
-    const passwordHash = await bcrypt.hash( body.password, saltRounds);
+    const saltRounds = bcrypt.genSalt(10);
+    const passwordHash = await bcrypt.hash(password, saltRounds);
 
     const user = new User({
       username: body.username,
@@ -46,16 +46,16 @@ usersRouter.post('/', async (request, response, next) => {
 });
 
 usersRouter.get('/', async (request, response, next) => {
-    try {
-      const users = await User.find({}).populate('blogs', {
-        title: 1,
-        url: 1,
-        author: 1,
-      });
-      response.json(users.map((user) => user.toJSON()));
-    } catch (err) {
-      next(err);
-    }
-  });
+  try {
+    const users = await User.find({}).populate('blogs', {
+      title: 1,
+      url: 1,
+      author: 1,
+    });
+    response.json(users.map((user) => user.toJSON()));
+  } catch (err) {
+    next(err);
+  }
+});
 
 module.exports = usersRouter

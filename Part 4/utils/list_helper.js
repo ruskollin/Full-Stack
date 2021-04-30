@@ -3,7 +3,7 @@ const dummy = (blogs) => {
 }
 
 const totalLikes = (blogs) => {
-    return blogs.reduce((acc, cur) => acc + cur.likes, 0);
+    return blogs.reduce((acc, cur) => acc + cur.likes, 0)
 }
 
 const favoriteBlog = (blogs) => {
