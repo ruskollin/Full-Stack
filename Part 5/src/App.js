@@ -5,6 +5,8 @@ import blogService from './services/blogs'
 import loginService from './services/login'
 import AddBlog from './components/AddBlog'
 import Notification from './components/Notification'
+import LoginForm from './components/LoginForm'
+import Togglable from './components/Togglable'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
@@ -17,6 +19,7 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [notif, setNotif] = useState('*** message for you ***')
+  const [loginVisible, setLoginVisible] = useState(false)
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -58,43 +61,28 @@ const App = () => {
   }
 
   const loginForm = () => (
-    <form onSubmit={handleLogin}>
-      <h2>Login</h2>
-      <br/>
-      <Notification notif={notif} />
-      <br/>
-      <div>
-        username <br/>
-          <input
-          type="text"
-          value={username}
-          name="Username"
-          onChange={({ target }) => setUsername(target.value)}
-        />
-      </div>
-      <div>
-        password <br/>
-          <input
-          type="password"
-          value={password}
-          name="Password"
-          onChange={({ target }) => setPassword(target.value)}
-        />
-      </div>
-      <br/>
-      <button type="submit">LOGIN</button>
-    </form>      
+    <Togglable buttonLabel="log in">
+       <Notification notif={notif} />
+      <LoginForm
+        username={username}
+        password={password}
+        handleUsernameChange={({ target }) => setUsername(target.value)}
+        handlePasswordChange={({ target }) => setPassword(target.value)}
+        handleSubmit={handleLogin}
+      />
+    </Togglable>
   )
 
   const blogForm = () => (
     <div>
+      <button onClick={handleLogout} style={{ backgroundColor: 'red', color: 'white' }}>LOGOUT</button>
       <div>
-      <button onClick={handleLogout} style={{backgroundColor: 'red', color: 'white' }}>LOGOUT</button>
-      <h2>BLOGS</h2>
+        <h2>BLOGS</h2>
       </div>
       <Notification notif={notif} />
-      <br/>
-      <AddBlog
+      <br />
+      <Togglable buttonLabel="new blog">
+        <AddBlog
           addBlog={handleAdd}
           newTitle={newTitle}
           handleTitleChange={handleTitleChange}
@@ -102,10 +90,11 @@ const App = () => {
           handleAuthorChange={handleAuthorChange}
           newURL={newURL}
           handleURLChange={handleURLChange} />
+      </Togglable>
       <br />
       <div>
         {blogs.map(blog =>
-          <Blog 
+          <Blog
             key={blog.id}
             blog={blog}
             user={user}
@@ -123,45 +112,45 @@ const App = () => {
   const handleTitleChange = (event) => setNewTitle(event.target.value)
   const handleAuthorChange = (event) => setNewAuthor(event.target.value)
   const handleURLChange = (event) => setNewURL(event.target.value)
-  
+
   const handleAdd = async (event) => {
     event.preventDefault()
     const newObject = {
-        title: newTitle,
-        author: newAuthor,
-        url: newURL
-      }
-
-      blogService
-        .create(newObject)
-        .then(response => {
-          console.log(response)
-          setBlogs(blogs.concat(newObject))
-          setNewTitle('')
-          setNewAuthor('')
-          setNewURL('')
-          setNotif(
-            `new blog '${newTitle}' has been added!'`
-          )
-          setTimeout(() => {
-            setNotif(null)
-          }, 5000)
-        })
-        .catch((error) => {
-          console.log(error.response.data.error)
-        })
+      title: newTitle,
+      author: newAuthor,
+      url: newURL
     }
-  
+
+    blogService
+      .create(newObject)
+      .then(response => {
+        console.log(response)
+        setBlogs(blogs.concat(newObject))
+        setNewTitle('')
+        setNewAuthor('')
+        setNewURL('')
+        setNotif(
+          `new blog '${newTitle}' has been added!'`
+        )
+        setTimeout(() => {
+          setNotif(null)
+        }, 5000)
+      })
+      .catch((error) => {
+        console.log(error.response.data.error)
+      })
+  }
+
   return (
     <div>
-   {user === null ?
-      loginForm() :
-      <div>
-        <p>{user.name} is logged-in</p>
-        {blogForm()}
+      {user === null ?
+        loginForm() :
+        <div>
+          <p>{user.name} is logged-in</p>
+          {blogForm()}
 
-      </div>
-    }
+        </div>
+      }
     </div>
   )
 }

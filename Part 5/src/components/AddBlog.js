@@ -1,26 +1,26 @@
 import React from 'react'
 import '../index.css'
 
-const AddBlog = (props) => {
+const AddBlog = ({ onSubmit, handleTitleChange, handleAuthorChange, handleURLChange, newTitle, newURL, newAuthor}) => {
     return (
-        <form onSubmit={props.addBlog} className='formContainer'>
+        <form onSubmit={onSubmit} className='formContainer'>
           <div className='formBody'>
             Title: {' '} 
             <input
-              value={props.newTitle}
-              onChange={props.handleTitleChange} />
+              value={newTitle}
+              onChange={handleTitleChange} />
           </div>
           <div className='formBody'>
             Author: {' '}
             <input
-              value={props.newAuthor}
-              onChange={props.handleAuthorChange} />
+              value={newAuthor}
+              onChange={handleAuthorChange} />
           </div>
           <div className='formBody'>
             url: {' '}
             <input
-              value={props.newURL}
-              onChange={props.handleURLChange} />
+              value={newURL}
+              onChange={handleURLChange} />
           </div>
 
         <div>
