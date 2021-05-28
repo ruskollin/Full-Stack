@@ -57,28 +57,29 @@ blogsRouter.post('/', async (request, response, next) => {
   }
 })
 
-// blogsRouter.delete('/:id', (request, response, next) => {
-//   Blog.findByIdAndRemove(request.params.id)
-//     .then(() => {
-//       response.status(204).end()
-//     })
-//     .catch(error => next(error))
+// blogsRouter.delete('/:id', async (request, response, next) => {
+//   try {
+//     const blog = await Blog.findById(request.params.id)
+//     const user = request.user
+
+//     if (blog.user.toString() !== user.id.toString) {
+//       return response.status(403).json({ error: 'Cannot delete other blogs' })
+//     }
+//     await blog.remove()
+//     response.status(204).end()
+//   } catch (error) {
+//     error => next(error)
+//   }
 // })
 
-blogsRouter.delete('/:id', async (request, response, next) => {
-  try {
-    const blog = await Blog.findById(request.params.id)
-    const user = request.user
-
-    if (blog.user.toString() !== user.id.toString) {
-      return response.status(403).json({ error: 'Cannot delete other blogs' })
-    }
-    await blog.remove()
-    response.status(204).end()
-  } catch (error) {
-    error => next(error)
-  }
+blogsRouter.delete('/:id', (request, response, next) => {
+  Blog.findByIdAndRemove(request.params.id)
+    .then(() => {
+      response.status(204).end()
+    })
+    .catch(error => next(error))
 })
+
 
 blogsRouter.put('/:id', async (request, response, next) => {
   const body = request.body

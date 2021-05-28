@@ -58,4 +58,12 @@ usersRouter.get('/', async (request, response, next) => {
   }
 });
 
+usersRouter.delete('/:id', (request, response, next) => {
+  User.findByIdAndRemove(request.params.id)
+    .then(() => {
+      response.status(204).end()
+    })
+    .catch(error => next(error))
+})
+
 module.exports = usersRouter
