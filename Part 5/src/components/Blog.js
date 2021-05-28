@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import blogService from '../services/blogs'
 
 const containerStyle = {
   display: 'flex',
@@ -24,30 +25,49 @@ const buttonStyle = {
 
 const Blog = ({ blog }) => {
   const [visible, setVisible] = useState(false)
+  const [blogs, setBlogs] = useState([])
 
-  const showDetails = () => {
+  useEffect(() => {
+    blogService.getAll().then(blogs =>
+      setBlogs(blogs)
+    )
+  }, [])
+
+  const displayBlogForm = () => {
     return (
-      <div style={{wordWrap: 'break-word'}}>
-        <p>url: {blog.url}</p>
+      <div style={{ wordWrap: 'break-word' }}>
+        <p>URL:</p> <a href={blog.url}>{blog.url}</a>
         <p>
-          likes: {blog.likes}{' '}
-          <button>like</button>
+          likes: {blog.likes} &nbsp;
+          <button onClick={() => handleLikes(blog)}>like</button>
         </p>
       </div>
     )
   }
 
+  const handleLikes = async (blog) => {
+    await blogService.update(blog, {
+      'likes': blog.likes += 1,
+      'title': blog.title,
+      'author': blog.author,
+      'url': blog.url,
+    })
+
+    const blogs = await blogService.getAll()
+    setBlogs(blogs)
+  }
+
+
   return (
     <div style={containerStyle}>
-    <div style={blogStyle}>
-      <h2>{blog.title}</h2>
-      <p>{blog.author}</p>
-      <br />
-      <button onClick={() => setVisible(!visible)} style={buttonStyle}>
-        {visible ? 'hide' : 'view'}
-      </button>
-      {visible && showDetails()}
-    </div>
+      <div style={blogStyle}>
+        <h2>{blog.title}</h2>
+        <p>{blog.author}</p>
+        {visible && displayBlogForm()}
+        <button onClick={() => setVisible(!visible)} style={buttonStyle}>
+          {visible ? 'hide' : 'view'}
+        </button>
+      </div>
     </div>
   )
 }

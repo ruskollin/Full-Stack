@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import './index.css'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
@@ -62,7 +62,7 @@ const App = () => {
 
   const loginForm = () => (
     <Togglable buttonLabel="log in">
-       <Notification notif={notif} />
+      <Notification notif={notif} />
       <LoginForm
         username={username}
         password={password}
@@ -82,14 +82,7 @@ const App = () => {
       <Notification notif={notif} />
       <br />
       <Togglable buttonLabel="create new blog">
-        <AddBlog
-          addBlog={handleAdd}
-          newTitle={newTitle}
-          handleTitleChange={handleTitleChange}
-          newAuthor={newAuthor}
-          handleAuthorChange={handleAuthorChange}
-          newURL={newURL}
-          handleURLChange={handleURLChange} />
+        <AddBlog createBlog ={handleAdd} />
       </Togglable>
       <br />
       <div>
@@ -109,26 +102,11 @@ const App = () => {
     setUser(null)
   }
 
-  const handleTitleChange = (event) => setNewTitle(event.target.value)
-  const handleAuthorChange = (event) => setNewAuthor(event.target.value)
-  const handleURLChange = (event) => setNewURL(event.target.value)
-
-  const handleAdd = async (event) => {
-    event.preventDefault()
-    const newObject = {
-      title: newTitle,
-      author: newAuthor,
-      url: newURL
-    }
-
+  const handleAdd = (blogObject) => {
     blogService
-      .create(newObject)
+      .create(blogObject)
       .then(response => {
-        console.log(response)
-        setBlogs(blogs.concat(newObject))
-        setNewTitle('')
-        setNewAuthor('')
-        setNewURL('')
+        setBlogs(blogs.concat(response))
         setNotif(
           `new blog '${newTitle}' has been added!'`
         )
