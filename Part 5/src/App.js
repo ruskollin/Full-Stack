@@ -82,15 +82,16 @@ const App = () => {
       <Notification notif={notif} />
       <br />
       <Togglable buttonLabel="create new blog">
-        <AddBlog createBlog ={handleAdd} />
+        <AddBlog createBlog={handleAdd} />
       </Togglable>
       <br />
-      <div>
+      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
         {blogs.map(blog =>
           <Blog
             key={blog.id}
             blog={blog}
             user={user}
+            handleLikes={handleLikes}
           />
         )}
       </div>
@@ -102,13 +103,29 @@ const App = () => {
     setUser(null)
   }
 
+  const handleLikes = async (id) => {
+    const blog = blogs.find(item => item.id === id)
+    const likes = blog.likes +=1
+    const newBlog = {
+      ...blog,
+      likes,
+    }
+    const response = await blogService.update(id, newBlog)
+    if (response) {
+      const newList = blogs.map((item) =>
+        item.id === id ? newBlog : item
+      )
+      setBlogs(newList)
+    }
+  }
+
   const handleAdd = (blogObject) => {
     blogService
       .create(blogObject)
       .then(response => {
         setBlogs(blogs.concat(response))
         setNotif(
-          `new blog '${newTitle}' has been added!'`
+          `new blog '${response.title}' has been added!'`
         )
         setTimeout(() => {
           setNotif(null)

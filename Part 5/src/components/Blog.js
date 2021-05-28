@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react'
-import blogService from '../services/blogs'
+import React, { useState } from 'react'
 
 const containerStyle = {
   display: 'flex',
@@ -23,15 +22,8 @@ const buttonStyle = {
   width: 60
 }
 
-const Blog = ({ blog }) => {
+const Blog = ({ blog, handleLikes }) => {
   const [visible, setVisible] = useState(false)
-  const [blogs, setBlogs] = useState([])
-
-  useEffect(() => {
-    blogService.getAll().then(blogs =>
-      setBlogs(blogs)
-    )
-  }, [])
 
   const displayBlogForm = () => {
     return (
@@ -39,24 +31,11 @@ const Blog = ({ blog }) => {
         <p>URL:</p> <a href={blog.url}>{blog.url}</a>
         <p>
           likes: {blog.likes} &nbsp;
-          <button onClick={() => handleLikes(blog)}>like</button>
+          <button onClick={() => handleLikes(blog.id)}>like</button>
         </p>
       </div>
     )
   }
-
-  const handleLikes = async (blog) => {
-    await blogService.update(blog, {
-      'likes': blog.likes += 1,
-      'title': blog.title,
-      'author': blog.author,
-      'url': blog.url,
-    })
-
-    const blogs = await blogService.getAll()
-    setBlogs(blogs)
-  }
-
 
   return (
     <div style={containerStyle}>
