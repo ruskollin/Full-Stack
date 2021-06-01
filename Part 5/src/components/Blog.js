@@ -22,7 +22,18 @@ const buttonStyle = {
   width: 60
 }
 
-const Blog = ({ blog, handleLikes }) => {
+const deleteButton = {
+  color: 'white',
+  backgroundColor: 'red',
+  marginBottom: 10,
+  display: 'grid',
+  textAlign: 'center',
+  marginLeft: 110,
+  marginTop: 20,
+  width: 80
+}
+
+const Blog = ({ blog, handleLikes, handleDelete }) => {
   const [visible, setVisible] = useState(false)
 
   const displayBlogForm = () => {
@@ -32,6 +43,7 @@ const Blog = ({ blog, handleLikes }) => {
         <p>
           likes: {blog.likes} &nbsp;
           <button onClick={() => handleLikes(blog.id)}>like</button>
+          <button style={deleteButton} onClick={() => handleDelete(blog.id, blog.title, blog.author)}>remove</button>
         </p>
       </div>
     )

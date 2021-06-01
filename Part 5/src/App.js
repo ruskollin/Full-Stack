@@ -86,14 +86,17 @@ const App = () => {
       </Togglable>
       <br />
       <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-        {blogs.map(blog =>
-          <Blog
-            key={blog.id}
-            blog={blog}
-            user={user}
-            handleLikes={handleLikes}
-          />
-        )}
+        {blogs
+          .sort((first, second) => second.likes - first.likes)
+          .map(blog =>
+            <Blog
+              key={blog.id}
+              blog={blog}
+              user={user}
+              handleLikes={handleLikes}
+              handleDelete={handleDelete}
+            />
+          )}
       </div>
     </div>
   )
@@ -105,7 +108,7 @@ const App = () => {
 
   const handleLikes = async (id) => {
     const blog = blogs.find(item => item.id === id)
-    const likes = blog.likes +=1
+    const likes = blog.likes += 1
     const newBlog = {
       ...blog,
       likes,
@@ -116,6 +119,15 @@ const App = () => {
         item.id === id ? newBlog : item
       )
       setBlogs(newList)
+    }
+  }
+
+  const handleDelete = async (id, title, author) => {
+    if (window.confirm(`Remove blog ${title} by ${author}?`)) {
+      await blogService.remove(id).then(response => {
+        setBlogs(blogs.filter(p => p.id !== id).sort((a, b) => b.likes - a.likes))
+       console.log(blogs.filter(p => p.id !== id).sort((a, b) => b.likes - a.likes))
+      })
     }
   }
 
