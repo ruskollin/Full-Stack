@@ -1,4 +1,4 @@
 DELETE http://localhost:3003/api/blogs/#id
 
 ###
-DELETE http://localhost:3003/api/blogs/60b14a187662c5094866f829
+DELETE http://localhost:3003/api/blogs/60b68b175641c1254caa0688
