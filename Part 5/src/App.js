@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useEffect } from 'react'
 import './index.css'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
@@ -10,16 +10,10 @@ import Togglable from './components/Togglable'
 
 const App = () => {
   const [blogs, setBlogs] = useState([])
-  const [newTitle, setNewTitle] = useState('')
-  const [newAuthor, setNewAuthor] = useState('')
-  const [newURL, setNewURL] = useState('')
-  const [showAll, setShowAll] = useState(true)
-  const [errorMessage, setErrorMessage] = useState(null)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [user, setUser] = useState(null)
   const [notif, setNotif] = useState('*** message for you ***')
-  const [loginVisible, setLoginVisible] = useState(false)
 
   useEffect(() => {
     blogService.getAll().then(blogs =>
@@ -52,7 +46,7 @@ const App = () => {
       setPassword('')
     } catch (exception) {
       setNotif(
-        `wrong username or password`
+        'wrong username or password'
       )
       setTimeout(() => {
         setNotif(null)
@@ -126,7 +120,8 @@ const App = () => {
     if (window.confirm(`Remove blog ${title} by ${author}?`)) {
       await blogService.remove(id).then(response => {
         setBlogs(blogs.filter(p => p.id !== id).sort((a, b) => b.likes - a.likes))
-       console.log(blogs.filter(p => p.id !== id).sort((a, b) => b.likes - a.likes))
+        console.log(blogs.filter(p => p.id !== id).sort((a, b) => b.likes - a.likes))
+        console.log(response)
       })
     }
   }
