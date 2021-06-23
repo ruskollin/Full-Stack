@@ -13,8 +13,9 @@ body {
   }
   
   .formContainer {
-    padding: 10;
-    width: 300;
+    display: inline-block;
+    width: 140px;
+    text-align: right;
   }
   
   .formBody {

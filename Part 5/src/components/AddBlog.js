@@ -29,24 +29,27 @@ const AddBlog = ({ createBlog }) => {
       <div className='formBody'>
         Title:{' '}
         <input
+          id='title'
           value={newTitle}
           onChange={handleTitleChange} />
       </div>
       <div className='formBody'>
         Author: {' '}
         <input
+          id='author'
           value={newAuthor}
           onChange={handleAuthorChange} />
       </div>
       <div className='formBody'>
         url: {' '}
         <input
+          id='url'
           value={newURL}
           onChange={handleURLChange} />
       </div>
 
       <div>
-        <button style={{ marginLeft: 150, marginBottom: 5, marginTop: 10, backgroundColor: 'green', color: 'white' }} type="submit">
+        <button style={{ marginLeft: 120, marginBottom: 5, marginTop: 10, backgroundColor: 'green', color: 'white' }} type="submit">
         ADD
         </button>
       </div>

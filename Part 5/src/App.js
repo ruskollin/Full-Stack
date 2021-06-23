@@ -75,7 +75,7 @@ const App = () => {
       </div>
       <Notification notif={notif} />
       <br />
-      <Togglable buttonLabel="create new blog">
+      <Togglable buttonLabel="Create New Blog">
         <AddBlog createBlog={handleAdd} />
       </Togglable>
       <br />

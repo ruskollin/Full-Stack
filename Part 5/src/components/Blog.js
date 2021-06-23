@@ -55,7 +55,7 @@ const Blog = ({ blog, handleLikes, handleDelete }) => {
         <h2>{blog.title}</h2>
         <p>{blog.author}</p>
         {visible && displayBlogForm()}
-        <button onClick={() => setVisible(!visible)} style={buttonStyle}>
+        <button className='like' onClick={() => setVisible(!visible)} style={buttonStyle}>
           {visible ? 'hide' : 'view'}
         </button>
       </div>
