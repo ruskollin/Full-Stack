@@ -6,6 +6,7 @@ import About from './components/About'
 import Footer from './components/Footer'
 import Anecdote from './components/Anecdote'
 import CreateNew from './components/CreateNew'
+import Notification from './components/Notification'
 
 const App = () => {
   const [anecdotes, setAnecdotes] = useState([
@@ -28,27 +29,31 @@ const App = () => {
   const addNew = (anecdote) => {
     anecdote.id = (Math.random() * 10000).toFixed(0)
     setAnecdotes(anecdotes.concat(anecdote))
-  }
-
-  const [notification, setNotification] = useState(null)
-
-  const anecdoteById = (id) =>
-    anecdotes.find(a => a.id === id)
-
-  const vote = (id) => {
-    const anecdote = anecdoteById(id)
-
-    const voted = {
-      ...anecdote,
-      votes: anecdote.votes + 1
-    }
-
-    setAnecdotes(anecdotes.map(a => a.id === id ? voted : a))
-    setNotification(`${anecdote.content} created successfully !`)
+    setNotif(`${anecdote.content} created successfully !`)
     setTimeout(() => {
-      setNotification(null)
+      setNotif(null)
     }, 10000)
   }
+
+  const [notif, setNotif] = useState('*** message for you ***')
+
+  // const anecdoteById = (id) =>
+  //   anecdotes.find(a => a.id === id)
+
+  // const vote = (id) => {
+  //   const anecdote = anecdoteById(id)
+
+  //   const voted = {
+  //     ...anecdote,
+  //     votes: anecdote.votes + 1
+  //   }
+
+  //   setAnecdotes(anecdotes.map(a => a.id === id ? voted : a))
+  //   setNotif(`${anecdote.content} created successfully !`)
+  //   setTimeout(() => {
+  //     setNotif(null)
+  //   }, 10000)
+  // }
 
 
   const match = useRouteMatch('/anecdotes/:id')
@@ -60,7 +65,7 @@ const App = () => {
   return (
     <div>
       <h1>Software anecdotes</h1>
-      {notification}
+      <Notification notif={notif} />
       <Menu />
       <Switch>
       <Route path="/anecdotes/:id">
