@@ -49,7 +49,7 @@ const AddBlog = ({ createBlog }) => {
       </div>
 
       <div>
-        <button style={{ marginLeft: 120, marginBottom: 5, marginTop: 10, backgroundColor: 'green', color: 'white' }} type="submit">
+        <button style={{ marginLeft: 120, marginBottom: 5, marginTop: 10, backgroundColor: 'green', color: 'white' }} type="submit" id='add-button'>
         ADD
         </button>
       </div>

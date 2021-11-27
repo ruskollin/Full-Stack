@@ -79,7 +79,7 @@ const App = () => {
         <AddBlog createBlog={handleAdd} />
       </Togglable>
       <br />
-      <div style={{ display: 'flex', flexWrap: 'wrap' }}>
+      <div id='blogs' style={{ display: 'flex', flexWrap: 'wrap' }}>
         {blogs
           .sort((first, second) => second.likes - first.likes)
           .map(blog =>

@@ -40,9 +40,9 @@ const Blog = ({ blog, handleLikes, handleDelete }) => {
     return (
       <div style={{ wordWrap: 'break-word' }}>
         <p>URL:</p> <a href={blog.url}>{blog.url}</a>
-        <p>
+        <p id='likes'>
           likes: {blog.likes} &nbsp;
-          <button onClick={() => handleLikes(blog.id)}>like</button>
+          <button onClick={() => handleLikes(blog.id)} id='like-button'>like</button>
           <button style={deleteButton} onClick={() => handleDelete(blog.id, blog.title, blog.author)}>remove</button>
         </p>
       </div>
@@ -51,11 +51,11 @@ const Blog = ({ blog, handleLikes, handleDelete }) => {
 
   return (
     <div style={containerStyle}>
-      <div style={blogStyle}>
+      <div id='blog' style={blogStyle}>
         <h2>{blog.title}</h2>
         <p>{blog.author}</p>
         {visible && displayBlogForm()}
-        <button className='like' onClick={() => setVisible(!visible)} style={buttonStyle}>
+        <button className='like' onClick={() => setVisible(!visible)} style={buttonStyle} id='view-button'>
           {visible ? 'hide' : 'view'}
         </button>
       </div>
