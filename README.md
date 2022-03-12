@@ -41,7 +41,6 @@
 ### State Management with Redux
 *Flux-architecture and Redux  
 *Reducers    
-*ESlint  
 *Communicating with Server in a Redux Application  
 *Connect  
 
