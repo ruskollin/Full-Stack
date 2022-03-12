@@ -33,7 +33,7 @@
 ### Testing React Apps
 *Login in frontend  
 *Props.children and Prototypes  
-*ESlint
+*ESlint  
 *Testing React Apps  
 *End to End Testing
 
@@ -41,7 +41,7 @@
 ### State Management with Redux
 *Flux-architecture and Redux  
 *Reducers    
-*ESlint
+*ESlint  
 *Communicating with Server in a Redux Application  
 *Connect  
 
