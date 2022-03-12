@@ -1,0 +1,34 @@
+POST http://localhost:3003/api/login 
+Content-Type: application/json
+
+{
+"username": "Pooh", 
+"password": "bears"
+}
+
+###
+POST http://localhost:3003/api/login 
+Content-Type: application/json
+
+{
+"username": "spacecat", 
+"password": "cats"
+}
+
+###
+POST http://localhost:3003/api/login 
+Content-Type: application/json
+
+{
+"username": "root", 
+"password": "salainen"
+}
+
+###
+POST http://localhost:3003/api/login 
+Content-Type: application/json
+
+{
+"username": "cats", 
+"password": "cats"
+}

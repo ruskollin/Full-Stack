@@ -1,19 +1,17 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import '../index.css'
 
 const Menu = () => {
-  const padding = {
-    paddingRight: 5
-  }
   return (
-    <div>
-      <Link to="/" style={padding}>
+    <div className='nav-bar'>
+      <Link to="/" className='button-4'>
         anecdotes
       </Link>
-      <Link to="/create" style={padding}>
+      <Link to="/create" className='button-4'>
         create new
       </Link>
-      <Link to="/about" style={padding}>
+      <Link to="/about" className='button-4'>
         about
       </Link>
     </div>

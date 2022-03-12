@@ -3,7 +3,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const AnecdoteList = ({ anecdotes }) => (
-    <div>
+    <div className='wrapper'>
       <h2>Anecdotes</h2>
       <ul>
         {anecdotes.map(anecdote => 

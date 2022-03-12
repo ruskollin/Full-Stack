@@ -2,9 +2,12 @@
 import React from 'react'
 
 const Notification = ({ notif }) => {
-    if (notif === null) {
-      return null
-    }
+    if (notif === '') {
+      return (
+      <div style={{height: '33px'}}>
+      </div>
+      )
+    } else {
   
     return (
       <div className='notification'>
@@ -12,5 +15,6 @@ const Notification = ({ notif }) => {
       </div>
     )
   }
+}
 
 export default Notification

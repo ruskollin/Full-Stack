@@ -24,7 +24,7 @@ const CreateNew = (props) => {
   }
 
   return (
-    <div>
+    <div className='wrapper'>
       <h2>Create a New Anecdote</h2>
       <form onSubmit={handleSubmit}>
 
@@ -48,8 +48,8 @@ const CreateNew = (props) => {
           />
         </div>
 
-        <div>
-          url for more info
+        <div style={{marginBottom: '50px'}}>
+        <label> url for more info</label>
           <input
             type={info.type}
             name="info"
@@ -57,11 +57,9 @@ const CreateNew = (props) => {
             onChange={info.onChange}
           />
         </div>
+        <button className='button-4' type="reset" style={{background: 'lightgray' , marginRight: '50px'}}onClick={handleReset}>reset</button>
 
-
-        <button type="submit">create</button>
-        <button type="reset" onClick={handleReset}>reset</button>
-
+        <button className='button-4' type="submit" style={{background: '#b4d455'}}>create</button>
       </form>
     </div>
   )

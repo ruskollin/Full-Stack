@@ -7,6 +7,7 @@ import Footer from './components/Footer'
 import Anecdote from './components/Anecdote'
 import CreateNew from './components/CreateNew'
 import Notification from './components/Notification'
+import './index.css'
 import  { useField } from './hooks'
 
 const App = () => {
@@ -32,11 +33,11 @@ const App = () => {
     setAnecdotes(anecdotes.concat(anecdote))
     setNotif(`${anecdote.content} created successfully !`)
     setTimeout(() => {
-      setNotif(null)
+      setNotif('')
     }, 10000)
   }
 
-  const [notif, setNotif] = useState('*** message for you ***')
+  const [notif, setNotif] = useState('')
 
   // const anecdoteById = (id) =>
   //   anecdotes.find(a => a.id === id)
@@ -64,10 +65,13 @@ const App = () => {
 
 
   return (
-    <div>
-      <h1>Software anecdotes</h1>
+    <div style={{height: '100vh'}}>
+      <div style={{display: 'flex', flexDirection: 'row', backgroundColor: '#57BED7', padding: '10px'}}>
+        <h1 style={{width: '30%', margin: 0}}>Software anecdotes</h1>
+        <Menu />
+      </div>
+      <div style={{height: '80%'}}>
       <Notification notif={notif} />
-      <Menu />
       <Switch>
       <Route path="/anecdotes/:id">
           <Anecdote anecdote={anecdote} />
@@ -82,6 +86,7 @@ const App = () => {
           <AnecdoteList anecdotes={anecdotes} />
         </Route>
       </Switch>
+      </div>
       <Footer />
     </div>
   )
