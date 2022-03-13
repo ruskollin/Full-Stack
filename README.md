@@ -23,13 +23,13 @@
 *[Back End Repo](https://github.com/ruskollin/backend3)  
 *[Front End Repo](https://github.com/ruskollin/Full-Stack/tree/master/Part%202/phonebook)  
 
-
 ## Part 4 :volcano: 
 ### Testing Express servers, User Administration
 *Testing the Backend  
 *User Administration    
 *Token Authentication     
 
+<<<<<<< HEAD
 ## Part 5 
 ### Testing React Apps
 *Log in  
@@ -46,3 +46,20 @@
 ## Part 7  
 ### React Router, Custom Hooks, Styling App with CSS and Webpack
  
+=======
+## Part 5 :brain:
+### Testing React Apps
+*Login in frontend  
+*Props.children and Prototypes  
+*ESlint  
+*Testing React Apps  
+*End to End Testing
+
+## Part 6 :deciduous_tree:
+### State Management with Redux
+*Flux-architecture and Redux  
+*Reducers    
+*Communicating with Server in a Redux Application  
+*Connect  
+
+>>>>>>> dda7418029f023ea9d532d4098a0c52b8ad68db3
