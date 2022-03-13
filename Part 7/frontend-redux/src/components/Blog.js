@@ -33,7 +33,7 @@ const deleteButton = {
   width: 80
 }
 
-const Blog = ({ blog, handleLikes, handleDelete }) => {
+const Blog = ({ blog, handleLikes, deleteBlog }) => {
   const [visible, setVisible] = useState(false)
 
   const displayBlogForm = () => {
@@ -42,8 +42,8 @@ const Blog = ({ blog, handleLikes, handleDelete }) => {
         <p>URL:</p> <a href={blog.url}>{blog.url}</a>
         <p id='likes'>
           likes: {blog.likes} &nbsp;
-          <button onClick={() => handleLikes(blog.id)} id='like-button'>like</button>
-          <button style={deleteButton} onClick={() => handleDelete(blog.id, blog.title, blog.author)}>remove</button>
+          <button onClick={handleLikes} id='like-button'>like</button>
+          <button style={deleteButton} onClick={deleteBlog}>remove</button>
         </p>
       </div>
     )

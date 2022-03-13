@@ -73,8 +73,8 @@ blogsRouter.post('/', async (request, response, next) => {
 // })
 
 blogsRouter.delete('/:id', async (req, res) => {
-  const token = getTokenFrom(req)
-  const decodedToken = jwt.verify(token, config.SECRET)
+  const token = req.token
+  const decodedToken = jwt.verify(req.token, config.SECRET)
 
   try {
     if (!token || !decodedToken.id) {

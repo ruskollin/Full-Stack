@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import './index.css'
 import Blog from './components/Blog'
+import blogService from './services/blogs'
 import loginService from './services/login'
 import AddBlog from './components/AddBlog'
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
 import Togglable from './components/Togglable'
 
-import { initializeBlogs, addBlog } from './reducers/blogReducer'
+import { initializeBlogs, addBlog, handleLikes, deleteBlog } from './reducers/blogReducer'
 import { setNotification } from './reducers/notificationReducer'
 import { setLoggedUser } from './reducers/loggedUserReducer'
 
@@ -35,6 +36,7 @@ const App = () => {
       window.localStorage.setItem(
         'loggedBlogAppUser', JSON.stringify(user)
       )
+      blogService.setToken(user.token)
       dispatch(setUser(user))
       setUsername('')
       setPassword('')
@@ -80,6 +82,16 @@ const App = () => {
               key={blog.id}
               blog={blog}
               user={user}
+              handleLikes={() => {
+                dispatch(handleLikes(blog))
+                dispatch(setNotification(`${blog.title} +1 LIKE.`, 5))
+              }}
+              deleteBlog={() => {
+                if (window.confirm(`Remove blog ${blog.title} by ${blog.author}?`)) {
+                  dispatch(deleteBlog(blog.id))
+                  dispatch(setNotification(`${blog.title} has been removed.`, 5))
+                }
+              }}
             />
           )}
       </div>

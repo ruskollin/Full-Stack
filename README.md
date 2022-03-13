@@ -30,3 +30,19 @@
 *User Administration    
 *Token Authentication     
 
+## Part 5 
+### Testing React Apps
+*Log in  
+*Props.children and Proptypes  
+*Testing React Apps
+*End to End Testing
+
+## Part 6 
+### Stage Management with Redux
+*Unicafe-Redux
+*Redux Anecdotes 
+*Token Authentication    
+
+## Part 7  
+### React Router, Custom Hooks, Styling App with CSS and Webpack
+ 
