@@ -8,21 +8,25 @@ import AddBlog from './components/AddBlog'
 import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
 import Togglable from './components/Togglable'
+import UserTable from './components/UserTable'
 
 import { initializeBlogs, addBlog, handleLikes, deleteBlog } from './reducers/blogReducer'
 import { setNotification } from './reducers/notificationReducer'
 import { setLoggedUser } from './reducers/loggedUserReducer'
+import { initializeUsers } from './reducers/userReducer'
 
 const App = () => {
   const dispatch = useDispatch()
   const blogs = useSelector(state => state.blogs)
+  const users = useSelector(state => state.users)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState('')
 
   useEffect(() => {
     dispatch(initializeBlogs())
     dispatch(setLoggedUser())
+    dispatch(initializeUsers())
   }, [dispatch])
 
   const handleLogin = async (event) => {
@@ -64,10 +68,11 @@ const App = () => {
 
   const blogForm = () => (
     <div>
-      <button onClick={handleLogout} style={{ backgroundColor: 'red', color: 'white' }}>LOGOUT</button>
       <div>
         <h2>BLOGS</h2>
       </div>
+      <p>{user.name} is logged-in</p>
+      <button onClick={handleLogout} style={{ backgroundColor: 'red', color: 'white', marginBottom: 50 }}>LOGOUT</button>
       <Notification />
       <br />
       <Togglable buttonLabel="Create New Blog">
@@ -103,14 +108,22 @@ const App = () => {
     dispatch(setUser(null))
   }
 
+  const userList = () => (
+    <div>
+      <div>
+        <h2>USERS</h2>
+        <UserTable users={users} />
+      </div>
+    </div>
+  )
+
   return (
     <div>
       {user === null ?
         loginForm() :
         <div>
-          <p>{user.name} is logged-in</p>
           {blogForm()}
-
+          {userList()}
         </div>
       }
     </div>
