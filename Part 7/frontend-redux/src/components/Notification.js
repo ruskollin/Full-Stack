@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux'
 
 const Notification = () => {
   const notif = useSelector(state => state.notification)
-  console.log(notif)
   if (!notif) {
     return null
   } else {

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { Routes, Route, useMatch } from 'react-router-dom'
 import './index.css'
 import Blog from './components/Blog'
 import blogService from './services/blogs'
@@ -9,19 +10,26 @@ import Notification from './components/Notification'
 import LoginForm from './components/LoginForm'
 import Togglable from './components/Togglable'
 import UserTable from './components/UserTable'
+import User from './components/User'
+
+import { LinkContainer } from 'react-router-bootstrap'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav'
+import Container from 'react-bootstrap/Container'
 
 import { initializeBlogs, addBlog, handleLikes, deleteBlog } from './reducers/blogReducer'
 import { setNotification } from './reducers/notificationReducer'
-import { setLoggedUser } from './reducers/loggedUserReducer'
+import { setLoggedUser, setUser } from './reducers/loggedUserReducer'
 import { initializeUsers } from './reducers/userReducer'
 
 const App = () => {
   const dispatch = useDispatch()
   const blogs = useSelector(state => state.blogs)
   const users = useSelector(state => state.users)
+  const currentUser = useSelector(state => state.loggedUser)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [user, setUser] = useState('')
 
   useEffect(() => {
     dispatch(initializeBlogs())
@@ -31,7 +39,6 @@ const App = () => {
 
   const handleLogin = async (event) => {
     event.preventDefault()
-    console.log(password)
     // cats = cats, root = salainen
     try {
       const user = await loginService.login({
@@ -40,6 +47,7 @@ const App = () => {
       window.localStorage.setItem(
         'loggedBlogAppUser', JSON.stringify(user)
       )
+      console.log('USER WHO JUST LOGGED IN: ', user)
       blogService.setToken(user.token)
       dispatch(setUser(user))
       setUsername('')
@@ -66,12 +74,17 @@ const App = () => {
     dispatch(setNotification(`New blog '${blog.title}' by ${blog.author} has been added.`, 10))
   }
 
+  const userMatch = useMatch('/users/:id')
+  const user = userMatch
+    ? users.find(user => user.id === userMatch.params.id)
+    : null
+
   const blogForm = () => (
     <div>
       <div>
         <h2>BLOGS</h2>
       </div>
-      <p>{user.name} is logged-in</p>
+      <p>{currentUser.name} is logged-in</p>
       <button onClick={handleLogout} style={{ backgroundColor: 'red', color: 'white', marginBottom: 50 }}>LOGOUT</button>
       <Notification />
       <br />
@@ -119,11 +132,26 @@ const App = () => {
 
   return (
     <div>
-      {user === null ?
+      {!currentUser ?
         loginForm() :
         <div>
-          {blogForm()}
-          {userList()}
+          <Navbar bg="dark" variant="dark">
+            <Container>
+              <Nav className="me-auto">
+                <LinkContainer to='/'>
+                  <Nav.Link>Home</Nav.Link>
+                </LinkContainer>
+                <LinkContainer to='/users'>
+                  <Nav.Link>Users</Nav.Link>
+                </LinkContainer>
+              </Nav>
+            </Container>
+          </Navbar>
+          <Routes>
+            <Route path='/' element={ blogForm() } />
+            <Route path='/users' element= { userList() } />
+            <Route path='/users/:id' element={ <User user={user} /> } />
+          </Routes>
         </div>
       }
     </div>

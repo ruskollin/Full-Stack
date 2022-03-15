@@ -1,7 +1,8 @@
 import React from 'react'
-
+import { Link } from 'react-router-dom'
 
 const UserTable = ({ users }) => {
+  console.log(users)
   return (
     <div>
       <table>
@@ -11,7 +12,7 @@ const UserTable = ({ users }) => {
         </tr>
         {users.map(user =>
           <tr key={user.id}>
-            <td style={{ width: '100px' }}><a href=''>{user.name}</a></td>
+            <td><Link to={{ pathname: `/users/${user.id}` }} >{user.name}</Link></td>
             <td>{user.blogs.length}</td>
           </tr>
         )}

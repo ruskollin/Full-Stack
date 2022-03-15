@@ -1,21 +1,16 @@
 import React from 'react'
 
 const User = ({ user }) => {
-  console.log(user)
-
-  if(!user) {
-    return null
-  }
+  if(!user) return null
 
   return (
     <div>
-      <h2>{user.name}</h2>
-      <h3>Added Blogs</h3>
-      <ul>
+      <h2>BLOGS by: {user.name}</h2>
+      <div>
         {user.blogs.map(blog =>
-          <li key={blog.id}>{blog.title}</li>
+          <p key={blog.id}>{blog.title}</p>
         )}
-      </ul>
+      </div>
     </div>
   )
 }
