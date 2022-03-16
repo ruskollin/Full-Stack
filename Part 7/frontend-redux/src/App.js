@@ -11,6 +11,7 @@ import LoginForm from './components/LoginForm'
 import Togglable from './components/Togglable'
 import UserTable from './components/UserTable'
 import User from './components/User'
+import BlogTable from './components/BlogTable'
 
 import { LinkContainer } from 'react-router-bootstrap'
 import 'bootstrap/dist/css/bootstrap.min.css'
@@ -79,6 +80,11 @@ const App = () => {
     ? users.find(user => user.id === userMatch.params.id)
     : null
 
+  const blogMatch = useMatch('/blogs/:id')
+  const blog = blogMatch
+    ? blogs.find(blog => blog.id === blogMatch.params.id)
+    : null
+
   const blogForm = () => (
     <div>
       <div>
@@ -93,7 +99,8 @@ const App = () => {
       </Togglable>
       <br />
       <div id='blogs' style={{ display: 'flex', flexWrap: 'wrap' }}>
-        {blogs
+        <BlogTable blogs={blogs} />
+        {/* {blogs
           .sort((first, second) => second.likes - first.likes)
           .map(blog =>
             <Blog
@@ -111,7 +118,7 @@ const App = () => {
                 }
               }}
             />
-          )}
+          )} */}
       </div>
     </div>
   )
@@ -151,6 +158,21 @@ const App = () => {
             <Route path='/' element={ blogForm() } />
             <Route path='/users' element= { userList() } />
             <Route path='/users/:id' element={ <User user={user} /> } />
+            <Route path='/blogs/:id' element={
+              <Blog
+                blog={blog}
+                currentUser={currentUser.username}
+                handleLikes={() => {
+                  dispatch(handleLikes(blog))
+                  dispatch(setNotification(`${blog.title} +1 LIKE.`, 5))
+                }}
+                deleteBlog={() => {
+                  if (window.confirm(`Remove blog ${blog.title} by ${blog.author}?`)) {
+                    dispatch(deleteBlog(blog.id))
+                    dispatch(setNotification(`${blog.title} has been removed.`, 5))
+                  }
+                }} />
+            } />
           </Routes>
         </div>
       }

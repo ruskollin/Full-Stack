@@ -35,6 +35,11 @@ const deleteButton = {
 
 const Blog = ({ blog, handleLikes, deleteBlog }) => {
   const [visible, setVisible] = useState(false)
+  console.log(blog)
+
+  if(!blog) {
+    return null
+  }
 
   const displayBlogForm = () => {
     return (
