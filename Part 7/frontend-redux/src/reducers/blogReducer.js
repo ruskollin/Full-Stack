@@ -20,6 +20,11 @@ const blogReducer = (state = [], action) => {
     const id = action.data
     return state.filter(p => p.id !== id).sort((a, b) => b.likes - a.likes)
   }
+  case 'ADD_COMMENT':  {
+    return state.map((blog) =>
+      blog.id !== action.data.id ? blog : action.data
+    )
+  }
   default:
     return state
   }
@@ -76,5 +81,17 @@ export const deleteBlog = (id) => {
     })
   }
 }
+
+export const addComment = (id, comment) => {
+  return async dispatch => {
+    const blogWithNewComment = await blogService.createComment(id, comment)
+    console.log(blogWithNewComment)
+    dispatch({
+      type: 'ADD_COMMENT',
+      data: blogWithNewComment
+    })
+  }
+}
+
 
 export default blogReducer

@@ -13,7 +13,8 @@ body {
   }
   
   .formContainer {
-    display: inline-block;
+    flex-direction: column;
+    display: flex;
     width: 140px;
     text-align: right;
   }
@@ -21,7 +22,7 @@ body {
   .formBody {
     margin-bottom: 10;
     margin-left: 30px;
-    width: 250px;
+    width: 266px;
     padding: 2px;
   }
   
@@ -45,4 +46,82 @@ body {
     text-align: 'center';
     margin-left: 20;
     background-color: '#ACE7FF';
+  }
+
+  .headerName {
+    display: flex;
+    width: 100%;
+  }
+
+  .table-striped>tbody>tr:nth-child(odd)>td, 
+  .table-striped>tbody>tr:nth-child(odd)>th {
+    background-color: #dff9ffb0 
+  }
+  
+  .cardBg {
+    background-image: url(./images/img1.jpg);
+    position: relative;
+  }
+
+  .cardBlog {
+    position: absolute;
+    bottom: 0;
+    background: #d9fbff;
+    width: 100%;
+    text-align: end;
+    border-radius: 100px 0px 0px 0px;
+  }
+
+  .likeStyle {
+    background: transparent !important;
+    border: 0 !important
+  }
+
+  .likeStyle:focus {
+    outline: none !important;
+    box-shadow: none !important;
+    transform: scale(1.5, 1.5);
+  }
+
+  .userBg {
+    background-image: url(./images/img2.jpg);
+    height: 620px; 
+    width: 375px;
+  }
+
+  .caption {
+    position: absolute;
+    bottom: 0;
+    background: #d9fbff;
+    width: 100%;
+    text-align: end;
+    border-radius: 100px 0px 0px 0px;
+    font-size: 30px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .carousel-indicators {
+    background: #d9fbff !important;
+    margin: 0 !important;
+    background-color: black
+  }
+
+  .carousel-indicators [data-bs-target] {
+    background-color: black !important
+  }
+
+  .loginBg {
+    margin-top: 20px;
+  }
+
+  .imgBulb {
+   display: flex;
+   margin: auto;
+   justify-content: center;
+  }
+
+  .loginStyle {
+    background: white;
   }

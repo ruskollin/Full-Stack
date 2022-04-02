@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import '../index.css'
+import Button from 'react-bootstrap/Button'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const AddBlog = ({ createBlog }) => {
   const [newTitle, setNewTitle] = useState('')
@@ -41,7 +43,7 @@ const AddBlog = ({ createBlog }) => {
           onChange={handleAuthorChange} />
       </div>
       <div className='formBody'>
-        url: {' '}
+        URL: {' '}
         <input
           id='url'
           value={newURL}
@@ -49,9 +51,9 @@ const AddBlog = ({ createBlog }) => {
       </div>
 
       <div>
-        <button style={{ marginLeft: 120, marginBottom: 5, marginTop: 10, backgroundColor: 'green', color: 'white' }} type="submit" id='add-button'>
+        <Button variant="primary" style={{ marginLeft: 120, marginBottom: 5, marginTop: 10 }} type="submit" id='add-button'>
         ADD
-        </button>
+        </Button>
       </div>
     </form>
   )

@@ -1,4 +1,6 @@
 import React from 'react'
+import Button from 'react-bootstrap/Button'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 const LoginForm = ({
   handleSubmit,
@@ -20,7 +22,7 @@ const LoginForm = ({
           />
         </div>
         <div>
-                    password &nbsp;
+          password &nbsp;
           <input
             id='password'
             type="password"
@@ -28,7 +30,7 @@ const LoginForm = ({
             onChange={handlePasswordChange}
           />
         </div>
-        <button id="login-button" type="submit">login</button>
+        <Button variant='success' id="login-button" type="submit" style={{ marginTop: 10 }}>LOGIN</Button>
       </form>
     </div>
   )

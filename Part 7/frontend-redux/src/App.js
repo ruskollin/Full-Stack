@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Routes, Route, useMatch } from 'react-router-dom'
+import { Routes, Route, useMatch, useNavigate } from 'react-router-dom'
 import './index.css'
 import Blog from './components/Blog'
-import blogService from './services/blogs'
 import loginService from './services/login'
 import AddBlog from './components/AddBlog'
 import Notification from './components/Notification'
@@ -12,25 +11,27 @@ import Togglable from './components/Togglable'
 import UserTable from './components/UserTable'
 import User from './components/User'
 import BlogTable from './components/BlogTable'
+import Burger from './components/Burger'
+import MenuBar from './components/MenuBar'
 
-import { LinkContainer } from 'react-router-bootstrap'
+import Button from 'react-bootstrap/Button'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Navbar from 'react-bootstrap/Navbar'
-import Nav from 'react-bootstrap/Nav'
-import Container from 'react-bootstrap/Container'
 
 import { initializeBlogs, addBlog, handleLikes, deleteBlog } from './reducers/blogReducer'
 import { setNotification } from './reducers/notificationReducer'
 import { setLoggedUser, setUser } from './reducers/loggedUserReducer'
 import { initializeUsers } from './reducers/userReducer'
+import bulbImage from './images/img3.jpg'
 
 const App = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const blogs = useSelector(state => state.blogs)
   const users = useSelector(state => state.users)
   const currentUser = useSelector(state => state.loggedUser)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     dispatch(initializeBlogs())
@@ -46,10 +47,8 @@ const App = () => {
         username, password
       })
       window.localStorage.setItem(
-        'loggedBlogAppUser', JSON.stringify(user)
+        'loggedUser', JSON.stringify(user)
       )
-      console.log('USER WHO JUST LOGGED IN: ', user)
-      blogService.setToken(user.token)
       dispatch(setUser(user))
       setUsername('')
       setPassword('')
@@ -59,15 +58,18 @@ const App = () => {
   }
 
   const loginForm = () => (
-    <Togglable buttonLabel="log in">
-      <LoginForm
-        username={username}
-        password={password}
-        handleUsernameChange={({ target }) => setUsername(target.value)}
-        handlePasswordChange={({ target }) => setPassword(target.value)}
-        handleSubmit={handleLogin}
-      />
-    </Togglable>
+    <div className='loginBg'>
+      <div className='imgBulb' ><img alt='nature in my mind' src={bulbImage} style={{ width: 200 }}/></div>
+      <Togglable buttonLabel="log in">
+        <LoginForm
+          username={username}
+          password={password}
+          handleUsernameChange={({ target }) => setUsername(target.value)}
+          handlePasswordChange={({ target }) => setPassword(target.value)}
+          handleSubmit={handleLogin}
+        />
+      </Togglable>
+    </div>
   )
 
   const handleAddBlog = (blog) => {
@@ -86,52 +88,29 @@ const App = () => {
     : null
 
   const blogForm = () => (
-    <div>
+    <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column', position: 'relative' }}>
       <div>
-        <h2>BLOGS</h2>
-      </div>
-      <p>{currentUser.name} is logged-in</p>
-      <button onClick={handleLogout} style={{ backgroundColor: 'red', color: 'white', marginBottom: 50 }}>LOGOUT</button>
-      <Notification />
-      <br />
-      <Togglable buttonLabel="Create New Blog">
-        <AddBlog createBlog={handleAddBlog} />
-      </Togglable>
-      <br />
-      <div id='blogs' style={{ display: 'flex', flexWrap: 'wrap' }}>
-        <BlogTable blogs={blogs} />
-        {/* {blogs
-          .sort((first, second) => second.likes - first.likes)
-          .map(blog =>
-            <Blog
-              key={blog.id}
-              blog={blog}
-              user={user}
-              handleLikes={() => {
-                dispatch(handleLikes(blog))
-                dispatch(setNotification(`${blog.title} +1 LIKE.`, 5))
-              }}
-              deleteBlog={() => {
-                if (window.confirm(`Remove blog ${blog.title} by ${blog.author}?`)) {
-                  dispatch(deleteBlog(blog.id))
-                  dispatch(setNotification(`${blog.title} has been removed.`, 5))
-                }
-              }}
-            />
-          )} */}
+        <Notification />
+        <br />
+        <Togglable buttonLabel="Create New Blog">
+          <AddBlog createBlog={handleAddBlog} />
+        </Togglable>
+        <br />
+        <div id='blogs' style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+          <BlogTable blogs={blogs} />
+        </div>
       </div>
     </div>
   )
 
   const handleLogout = () => {
-    window.localStorage.removeItem('loggedBlogAppUser')
+    window.localStorage.removeItem('loggedUser')
     dispatch(setUser(null))
   }
 
   const userList = () => (
-    <div>
-      <div>
-        <h2>USERS</h2>
+    <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
         <UserTable users={users} />
       </div>
     </div>
@@ -142,18 +121,17 @@ const App = () => {
       {!currentUser ?
         loginForm() :
         <div>
-          <Navbar bg="dark" variant="dark">
-            <Container>
-              <Nav className="me-auto">
-                <LinkContainer to='/'>
-                  <Nav.Link>Home</Nav.Link>
-                </LinkContainer>
-                <LinkContainer to='/users'>
-                  <Nav.Link>Users</Nav.Link>
-                </LinkContainer>
-              </Nav>
-            </Container>
-          </Navbar>
+          <div className='headerName'>
+            <div style={{  width: '99%', display: 'flex', flexDirection: 'row', justifyContent: 'flex-end' }}>
+              <p style={{ margin: 'auto', fontWeight: 600, textAlign: 'center', marginRight: 20 }}>Hi {currentUser.name}!</p>
+              <Button onClick={handleLogout} variant="secondary" style={{ height: '31px', display: 'flex', alignItems: 'center', marginTop: 6 }}>LOGOUT</Button>
+            </div>
+          </div>
+          <div>
+            <Burger open={open} setOpen={setOpen} />
+            <MenuBar open={open} setOpen={setOpen} />
+          </div>
+
           <Routes>
             <Route path='/' element={ blogForm() } />
             <Route path='/users' element= { userList() } />
@@ -170,6 +148,7 @@ const App = () => {
                   if (window.confirm(`Remove blog ${blog.title} by ${blog.author}?`)) {
                     dispatch(deleteBlog(blog.id))
                     dispatch(setNotification(`${blog.title} has been removed.`, 5))
+                    navigate('/')
                   }
                 }} />
             } />

@@ -23,9 +23,9 @@ export const setUser = (user) => {
 
 export const setLoggedUser = () => {
   return async dispatch => {
-    const loggedUserJSON = await window.localStorage.getItem('loggedBlogappUser')
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON)
+    const loggedUser = await window.localStorage.getItem('loggedUser')
+    if (loggedUser) {
+      const user = JSON.parse(loggedUser)
       blogService.setToken(user.token)
       dispatch({
         type: 'SET_LOGGED_USER',
