@@ -40,7 +40,6 @@ const Togglable = React.forwardRef((props) => {
 
   const toggleVisibility = () => {
     setVisible(!visible)
-    console.log(props.children)
     //type.name = "AddBlog" LoginForm
   }
 
@@ -52,7 +51,7 @@ const Togglable = React.forwardRef((props) => {
       <div style={showWhenVisible}>
         <div  style={{ background: '#9fe5f6', width: '400px', borderRadius: '10px', padding: '20px', marginLeft: '20px', border: '3px solid #000' }}>
           {props.children}
-          {props.children.type.name === 'LoginForm' ?
+          {props.children.type.name === 'LoginForm' || props.children.type.name === 'D' ?
             <div style={{ display: 'flex' }}><Button onClick={toggleVisibility} variant="danger" style={{ marginTop: 10 }}>CANCEL</Button></div>
             : <div style={{ display: 'flex', justifyContent: 'center', marginRight: 31 }}><Button onClick={toggleVisibility} variant="danger" style={{ marginTop: 10 }}>CANCEL</Button></div> }
         </div>

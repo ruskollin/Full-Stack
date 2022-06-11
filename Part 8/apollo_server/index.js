@@ -165,7 +165,7 @@ const resolvers = {
         return authorArray
       }
 
-      //8.3
+    //8.3 exercise
     //   allAuthors: () => {
     //     const authorArray = []
     //     authors.forEach(author => {
