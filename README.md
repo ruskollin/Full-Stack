@@ -1,4 +1,13 @@
-# Full Stack Open Course
+# Full Stack Open Course  
+
+  
+## Projects :gem:      
+:gem::gem:  [Phonebook](https://backendforfullstack.herokuapp.com/)   :gem::gem:    
+*made with NodeJS, React  
+
+:gem::gem:  [Result of Redux App](https://dashboard.heroku.com/apps/fullstack-redux-styling)   :gem::gem:    
+*USER: username and password: cats  
+*ADMIN: username: root, password: salainen  
 
 ## Part 0 :eyes:  
 ### Fundamentals of Web Apps
@@ -29,24 +38,6 @@
 *User Administration    
 *Token Authentication     
 
-<<<<<<< HEAD
-## Part 5 
-### Testing React Apps
-*Log in  
-*Props.children and Proptypes  
-*Testing React Apps
-*End to End Testing
-
-## Part 6 
-### Stage Management with Redux
-*Unicafe-Redux
-*Redux Anecdotes 
-*Token Authentication    
-
-## Part 7  
-### React Router, Custom Hooks, Styling App with CSS and Webpack
- 
-=======
 ## Part 5 :brain:
 ### Testing React Apps
 *Login in frontend  
@@ -60,6 +51,22 @@
 *Flux-architecture and Redux  
 *Reducers    
 *Communicating with Server in a Redux Application  
-*Connect  
+*Connect
 
->>>>>>> dda7418029f023ea9d532d4098a0c52b8ad68db3
+## Part 7 :hatched_chick:  
+### React router, custom hooks, styling app with CSS and webpack  
+*React Router  
+*Custom Hooks  
+*UI Frameworks  
+
+## Part 8 :balloon:  
+### GraphQL  
+*GraphQL-Server  
+*React and GraphQL   
+*Database and User Administration    
+*Login and Updating the Cache    
+*Fragments and Subscriptions    
+
+
+
+
