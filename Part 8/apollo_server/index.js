@@ -120,6 +120,7 @@ const typeDefs = gql`
   type AuthorBookObject {
     name: String
     title: Int
+    published: Int
   }
 
   type Mutation {
@@ -158,7 +159,7 @@ const resolvers = {
         const authorArray = []
         authors.forEach(author => {
             const authorBookCount = books.filter(book => book.author === author.name).length
-            const authorObject = {name : author.name, bookCount: authorBookCount}
+            const authorObject = {name : author.name, born: author.born, bookCount: authorBookCount}
             authorArray.push(authorObject)
           })
 
