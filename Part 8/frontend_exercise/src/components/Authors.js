@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { gql, useQuery } from '@apollo/client'
+import AuthorFormYear from './AuthorFormYear'
 
 const Authors = (props) => {
   if (!props.show) {
@@ -25,6 +26,8 @@ const Authors = (props) => {
           ))}
         </tbody>
       </table>
+
+      <AuthorFormYear setError={props.setError} authors={props.authors.map((item) => item.name)}/>
     </div>
   )
 }
