@@ -1,6 +1,30 @@
-const { ApolloServer, gql } = require('apollo-server')
+const {
+  ApolloServer,
+  UserInputError,
+  AuthenticationError,
+  gql,
+} = require('apollo-server')
 const { v1: uuid } = require('uuid')
+const jwt = require('jsonwebtoken')
+const Book = require('./models/book')
+const Author = require('./models/author')
 
+const JWT_SECRET = 'NEED_HERE_A_SECRET_KEY'
+
+const MONGODB_URI =
+  'mongodb+srv://urlhere'
+
+console.log('connecting to', MONGODB_URI)
+
+mongoose
+  .connect(MONGODB_URI)
+  .then(() => {
+    console.log('connected to MongoDB')
+  })
+  .catch((error) => {
+    console.log('error connection to MongoDB:', error.message)
+  })
+  
 let authors = [
   {
     name: 'Robert Martin',
