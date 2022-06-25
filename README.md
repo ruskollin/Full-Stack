@@ -5,7 +5,7 @@
 :gem::gem:  [Phonebook](https://backendforfullstack.herokuapp.com/)   :gem::gem:    
 *made with NodeJS, React  
 
-:gem::gem:  [Result of Redux App](https://dashboard.heroku.com/apps/fullstack-redux-styling)   :gem::gem:    
+:gem::gem:  [Result of Redux App](https://fullstack-redux-styling.herokuapp.com/)   :gem::gem:    
 *USER: username and password: cats  
 *ADMIN: username: root, password: salainen  
 
