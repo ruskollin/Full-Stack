@@ -1,8 +1,4 @@
-interface BMIValues {
-    value1: number;
-    value2: number;
-  }
-  
+
   const calculateBmi = (a: number, b: number) => {
     const bmi: number = b / ((a * a) / 10000)
     console.log(bmi)
