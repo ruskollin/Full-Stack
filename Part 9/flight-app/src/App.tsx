@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
+import axios, {Axios, AxiosError} from "axios";
 import { FlightDiary } from "./types";
 import { getAllFlightDiaries, createFlightDiary } from "./flightService";
 import Box from "@mui/material/Box";
@@ -14,6 +14,7 @@ function App() {
   const [visibility, setVisibility] = useState("");
   const [weather, setWeather] = useState("");
   const [comment, setComment] = useState("");
+  const [error, setError] = useState("");
 
   useEffect(() => {
     getAllFlightDiaries().then((data) => {
@@ -29,24 +30,27 @@ function App() {
       weather: weather,
       comment: comment,
     };
-    console.log(newDiary);
-    try {
+ 
       createFlightDiary(newDiary).then((data) => {
         setFlightDiaries(flightDiaries.concat(data));
-      });
-      console.log('success')
-    } catch (error) {
-      console.log(error);
-    }
-
-    setDate("");
-    setVisibility("");
-    setWeather("");
-    setComment("");
+        setDate("");
+        setVisibility("");
+        setWeather("");
+        setComment("");
+        setError("");
+      }).catch((err: any | AxiosError) => {
+        if (axios.isAxiosError(error))  {
+          console.log(error);
+          console.log(err);
+        } else {
+          setError(err.response.data);
+        }
+      })
   };
 
   return (
     <div className="App">
+      {error && <h1 style={{color: 'red'}}>{error}</h1>}
       <Box
         component="form"
         sx={{
