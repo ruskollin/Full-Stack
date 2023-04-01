@@ -1,12 +1,19 @@
 import { useState, useEffect } from "react";
-import axios, {Axios, AxiosError} from "axios";
+import axios, { Axios, AxiosError } from "axios";
 import { FlightDiary } from "./types";
 import { getAllFlightDiaries, createFlightDiary } from "./flightService";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import "./App.css";
-import { setFips } from "crypto";
 
 function App() {
   const [flightDiaries, setFlightDiaries] = useState<FlightDiary[]>([]);
@@ -30,32 +37,38 @@ function App() {
       weather: weather,
       comment: comment,
     };
- 
-      createFlightDiary(newDiary).then((data) => {
+
+    createFlightDiary(newDiary)
+      .then((data) => {
         setFlightDiaries(flightDiaries.concat(data));
         setDate("");
         setVisibility("");
         setWeather("");
         setComment("");
         setError("");
-      }).catch((err: any | AxiosError) => {
-        if (axios.isAxiosError(error))  {
+      })
+      .catch((err: any | AxiosError) => {
+        if (axios.isAxiosError(error)) {
           console.log(error);
           console.log(err);
         } else {
           setError(err.response.data);
         }
-      })
+      });
   };
+
+  // const handleDateChange = (event) => {
+  //   console.log(event)
+  // }
 
   return (
     <div className="App">
-      {error && <h1 style={{color: 'red'}}>{error}</h1>}
+      {error && <h1 style={{ color: "red" }}>{error}</h1>}
       <Box
         component="form"
         sx={{
           m: 1,
-          width: "25ch",
+          width: 600,
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
@@ -64,27 +77,61 @@ function App() {
         noValidate
         autoComplete="off"
       >
-        <TextField
-          id="outlined-basic"
-          label="Date"
-          value={date}
-          variant="outlined"
-          onChange={(event) => setDate(event.target.value)}
-        />
-        <TextField
-          id="outlined-basic"
-          label="Visibility"
-          value={visibility}
-          variant="outlined"
-          onChange={(event) => setVisibility(event.target.value)}
-        />
-        <TextField
-          id="outlined-basic"
-          label="Weather"
-          value={weather}
-          variant="outlined"
-          onChange={(event) => setWeather(event.target.value)}
-        />
+        <FormControl style={{ display: "flex", flexDirection: "row" }}>
+          <label>Date</label>
+          <input
+            type="date"
+            value={date}
+            onChange={(event) => setDate(event.target.value)}
+            style={{ marginLeft: 106 }}
+          />
+        </FormControl>
+
+        <FormControl style={{ display: "flex", flexDirection: "row" }}>
+          <FormLabel id="demo-row-radio-buttons-group-label">
+            Visibility
+          </FormLabel>
+          <RadioGroup
+            row
+            aria-labelledby="demo-row-radio-buttons-group-label"
+            name="row-radio-buttons-group"
+            style={{ marginLeft: 80 }}
+            onChange={(event) => setVisibility(event.target.value)}
+            value={visibility}
+          >
+            <FormControlLabel value="great" control={<Radio />} label="great" />
+            <FormControlLabel value="good" control={<Radio />} label="good" />
+            <FormControlLabel value="okay" control={<Radio />} label="okay" />
+            <FormControlLabel value="poor" control={<Radio />} label="poor" />
+          </RadioGroup>
+        </FormControl>
+
+        <FormControl style={{ display: "flex", flexDirection: "row" }}>
+          <FormLabel id="demo-row-radio-buttons-group-label">Weather</FormLabel>
+          <RadioGroup
+            row
+            aria-labelledby="demo-row-radio-buttons-group-label"
+            name="row-radio-buttons-group"
+            style={{ marginLeft: 80 }}
+            onChange={(event) => setWeather(event.target.value)}
+            value={weather}
+          >
+            <FormControlLabel value="sunny" control={<Radio />} label="sunny" />
+            <FormControlLabel value="rainy" control={<Radio />} label="rainy" />
+            <FormControlLabel
+              value="cloudy"
+              control={<Radio />}
+              label="cloudy"
+            />
+            <FormControlLabel
+              value="stormy"
+              control={<Radio />}
+              label="stormy"
+            />
+            <FormControlLabel value="windy" control={<Radio />} label="windy" />
+          </RadioGroup>
+        </FormControl>
+
         <TextField
           id="outlined-basic"
           label="Comment"
